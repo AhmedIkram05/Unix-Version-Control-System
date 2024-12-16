@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Ahmed Ikram  2571642
-# Scott Hamilton 2580109
-# Charlie McSherry 2570537
-
-
 # Variables
 currentRepo="" # Stores the currently selected repository 
 logFile="log.txt" # The name of the log file where changes and comments will be recorded
