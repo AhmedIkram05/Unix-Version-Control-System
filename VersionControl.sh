@@ -264,35 +264,109 @@ viewFile() {
 	fi
 }
 
-# Main menu
-while true; do
-	echo "==== Version Control System ===="
-	echo "1. Create Repository"
-	echo "2. Select Repository"
-	echo "3. List Repository Contents"
-	echo "4. Add File to Repository"
-	echo "5. Check out file for editing"
-	echo "6. Check in file after editing"
-	echo "7. Restore a previous version"
-	echo "8. Archive Repository"
-	echo "9. Delete a file"
-	echo "10  View a file"
-	echo "11. Exit"
-	echo "================================"
+# Function to display the main menu
+mainMenu() {
+    while true; do
+        clear
+        echo "═══════════════════════════════════════"
+        echo "       Version Control System"
+        echo "═══════════════════════════════════════"
+        [[ -n "$currentRepo" ]] && echo "Current Repository: $currentRepo" || echo "No repository selected"
+        echo
+        echo "1. Repository Management"
+        echo "2. File Operations"
+        echo "3. View Options"
+        echo "4. Exit"
+        echo "═══════════════════════════════════════"
+        read -p "Enter choice: " choice
 
-	read choice
-	case $choice in
-		1) createRepository ;;
-		2) selectRepository ;;
-		3) listRepositoryContents ;;
-		4) addFile ;;
-		5) checkOut ;;
-		6) checkIn ;;
-		7) restore ;;
-		8) archiveRepository ;;
-		9) deleteFile ;;
-		10) viewFile ;;
-		11) exit ;;
-		*) echo "Invalid choice, please try again."
-	esac
-done
+        case $choice in
+            1) repositoryManagementMenu ;;
+            2) fileOperationsMenu ;;
+            3) viewOptionsMenu ;;
+            4) exit 0 ;;
+            *) echo "Invalid choice (1-4)"
+               sleep 2 ;;
+        esac
+    done
+}
+
+# Sub-menu for Repository Management
+repositoryManagementMenu() {
+    while true; do
+        clear
+        echo "═══════════════════════════════════════"
+        echo "       Repository Management"
+        echo "═══════════════════════════════════════"
+        echo "1. Create New Repository"
+        echo "2. Select Repository"
+        echo "3. Archive Repository"
+        echo "4. Back to Main Menu"
+        echo "═══════════════════════════════════════"
+        read -p "Enter choice: " choice
+
+        case $choice in
+            1) createRepository ;;
+            2) selectRepository ;;
+            3) archiveRepository ;;
+            4) break ;;
+            *) echo "Invalid choice (1-4)"
+               sleep 2 ;;
+        esac
+    done
+}
+
+# Sub-menu for File Operations
+fileOperationsMenu() {
+    while true; do
+        clear
+        echo "═══════════════════════════════════════"
+        echo "          File Operations"
+        echo "═══════════════════════════════════════"
+        echo "1. Add File            - Add new file to repository"
+        echo "2. Check Out File      - Lock file for editing"
+        echo "3. Check In File       - Save changes and unlock"
+        echo "4. Restore Version     - Restore previous version"
+        echo "5. Delete File         - Remove file from repository"
+        echo "6. Back to Main Menu"
+        echo "═══════════════════════════════════════"
+        read -p "Enter choice: " choice
+
+        case $choice in
+            1) addFile ;;
+            2) checkOut ;;
+            3) checkIn ;;
+            4) restore ;;
+            5) deleteFile ;;
+            6) break ;;
+            *) echo "Invalid choice (1-6)"
+               sleep 2 ;;
+        esac
+    done
+}
+
+# Sub-menu for View Options
+viewOptionsMenu() {
+    while true; do
+        clear
+        echo "═══════════════════════════════════════"
+        echo "            View Options"
+        echo "═══════════════════════════════════════"
+        echo "1. List Contents       - Show repository files"
+        echo "2. View File           - Display file contents"
+        echo "3. Back to Main Menu"
+        echo "═══════════════════════════════════════"
+        read -p "Enter choice: " choice
+
+        case $choice in
+            1) listRepositoryContents ;;
+            2) viewFile ;;
+            3) break ;;
+            *) echo "Invalid choice (1-3)"
+               sleep 2 ;;
+        esac
+    done
+}
+
+# Start the main menu
+mainMenu
